@@ -1,6 +1,7 @@
 const Task = require('../models/Task.js');
 
-const getTasks = async (req, res) => {
+// Controller functions for task management
+const getTasks = async (req, res) => { 
     try {
         const tasks = await Task.find({userId: req.user.id});
         res.json(tasks);
@@ -56,5 +57,6 @@ const deleteTask = async (req, res) => {
         res.status(500).json({message: "Server error"});
     }
 };
+
 
 module.exports = { getTasks, addTask, updateTask, deleteTask };
