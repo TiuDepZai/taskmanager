@@ -1,5 +1,7 @@
 const Task = require('../models/taskModel');
 
+// Controller functions for task management
+
 const getTasks = async (req, res) => {
     try {
         const tasks = await Task.find({userID: req.user.id});
