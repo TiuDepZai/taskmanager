@@ -1,8 +1,8 @@
-const Task = require('../models/taskModel');
+const Task = require('../models/Task.js');
 
 const getTasks = async (req, res) => {
     try {
-        const tasks = await Task.find({userID: req.user.id});
+        const tasks = await Task.find({userId: req.user.id});
         res.json(tasks);
     }
     catch (error) {
@@ -14,7 +14,7 @@ const getTasks = async (req, res) => {
 const addTask = async (req, res) => {
     const { title, description, deadline } = req.body;
     try{
-        const task = await Task.create({userID: req.user.id, title, description, deadline});
+        const task = await Task.create({userId: req.user.id, title, description, deadline});
         res.status(201).json(task);
 
     }
@@ -27,7 +27,7 @@ const addTask = async (req, res) => {
 const updateTask = async (req, res) => {
     const { title, description, completed, deadline } = req.body;
     try{
-        const task = await Task.FindById(req.params.id);
+        const task = await Task.findById(req.params.id);
         if (!task) return res.status(404).json({message: "Task not found"});
 
         task.title = title || task.title;
