@@ -7,8 +7,7 @@ const getTasks = async (req, res) => {
         res.json(tasks);
     }
     catch (error) {
-        console.error("Error fetching tasks:", error);
-        res.status(500).json({message: "Server error"});
+        res.status(500).json({message: error.message});
     }
 };
 
@@ -20,8 +19,7 @@ const addTask = async (req, res) => {
 
     }
     catch(error) {
-        console.error("Error adding task:", error);
-        res.status(500).json({message: "Server error"});
+        res.status(500).json({message: error.message});
     }
 };
 
@@ -40,8 +38,7 @@ const updateTask = async (req, res) => {
         res.json(updatedTask);
     }
     catch(error) {
-        console.error("Error updating task:", error);
-        res.status(500).json({message: "Server error"});
+        res.status(500).json({message: error.message});
     }
 };
 
@@ -50,11 +47,10 @@ const deleteTask = async (req, res) => {
         const task = await Task.findById(req.params.id);
         if (!task) return res.status(404).json({message: "Task not found"});
         await task.remove();
-        res.json({message: "Task deleted successfully"});
+        res.json({message: "Task deleted"});
     }
     catch (error) {
-        console.error("Error deleting task:", error);
-        res.status(500).json({message: "Server error"});
+        res.status(500).json({message: error.message});
     }
 };
 module.exports = { getTasks, addTask, updateTask, deleteTask };
